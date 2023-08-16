@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CombatTracker.MainPage"
+             xmlns:models="clr-namespace:CombatTracker.ViewModel"
+             xmlns:viewmodel= "clr-namespace:CombatTracker.ViewModel"
+             x:DataType="viewmodel:MainViewModel"
+             Title="">
+    
+    <Grid
+        RowDefinitions=".80*,.20*"
+        ColumnDefinitions=".100*"
+        BackgroundColor="Black">
+        <CollectionView
+                ItemsSource="{Binding Creature}"
+                SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type viewmodel:CharacterModel}">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem 
+                                    Text="Modifica PF" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=ModificaPfCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Red" />
+                                <SwipeItem 
+                                    Text="Rimuovi" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=RemoveCreaturaCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Black"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem 
+                                    Text="Uccidi" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=UccidiCreaturaCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Gray" />
+                                <SwipeItem 
+                                    Text="Rianima" 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=RianimaCreaturaCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Green" />
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <Frame BackgroundColor="Black" BorderColor="DarkRed" Padding="7">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                    NumberOfTapsRequired="1" 
+                                    CommandParameter="{Binding .}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=ModificaCreaturaCommand}"/>
+                        </Frame.GestureRecognizers>
+
+                            <Grid
+                                RowDefinitions=".60*,.40*"
+                                ColumnDefinitions=".20*, .10*, .20*, .10*, .20*, .10*"
+                                RowSpacing="2"
+                                BackgroundColor="{Binding BackColor}">
+                            <Label
+                                Grid.Row="0"
+                                Grid.ColumnSpan="10"
+                                Text="{Binding Name}"
+                                TextColor="{Binding ForeColor}"
+                                FontSize="20" 
+                                FontAttributes="Bold"
+                            />
+                                <Label Grid.Row="1" Grid.Column="0" Text="Iniziativa:" TextColor="Yellow"/>
+                                <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding Initiative}"
+                                TextColor="Yellow"
+                                FontSize="15" 
+                                FontAttributes="Bold"
+                            />
+                                <Label Grid.Row="1" Grid.Column="2" Text="CA: " HorizontalTextAlignment="End" TextColor="LightGray"/>
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Text="{Binding CA}"
+                                TextColor="LightGray"
+                                FontSize="15" 
+                                FontAttributes="Bold"
+                            />
+                                <Label Grid.Row="1" Grid.Column="4" Text="PF: " HorizontalTextAlignment="End" TextColor="Red"/>
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="{Binding PF}"
+                                TextColor="Red"
+                                FontSize="15" 
+                                FontAttributes="Bold"
+                            />
+                        </Grid>
+                    </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid Grid.Row="1"
+              RowDefinitions=".50*,.50*"
+        ColumnDefinitions=".50*,.50*">
+            <Button Text="CARICA PARTY"
+                Command="{Binding CaricaPartyCommand}"
+                Grid.Row="0"
+                Grid.Column="0"
+                BackgroundColor="Khaki"
+                BorderWidth="1"
+                TextColor="Black"
+                FontSize="30"
+                FontAttributes="Bold"/>
+            <Button Text="SALVA PARTY"
+                Command="{Binding SalvaPartyCommand}"
+                Grid.Row="0"
+                Grid.Column="1"
+                BackgroundColor="DarkGreen"
+                BorderWidth="1"
+                TextColor="Black"
+                FontSize="30"
+                FontAttributes="Bold"/>
+            <Button Text="AGGIUNGI CREATURA"
+                Command="{Binding ApriCreaNuovoCommand}"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                BackgroundColor="DarkRed"
+                BorderWidth="1"
+                TextColor="White"
+                FontSize="30"
+                FontAttributes="Bold"/>
+        </Grid>
+        
+    </Grid>
+</ContentPage>

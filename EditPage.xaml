@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CombatTracker.EditPage"
+             xmlns:viewmodel="clr-namespace:CombatTracker.ViewModel"
+             x:DataType="viewmodel:EditViewModel"
+             Title="">
+
+    <Frame
+         CornerRadius="10"
+         BackgroundColor="Black"
+         BorderColor="DarkRed">
+        <Grid RowDefinitions=".85*,.2*,.2*,.50*">
+            <Grid        
+             Grid.Row="0"
+             RowDefinitions=".20*,.20*,.20*,.20*,.20*"
+             ColumnDefinitions=".50*, .50*"
+             RowSpacing="1">
+                <Entry Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" Text="{Binding NewName}" FontSize="30" Placeholder="Nome"/>
+                <Picker TextColor="{Binding ForeTypeColor}" Grid.Row="1" Grid.ColumnSpan="2" Title="Tipo" FontSize="Large" ItemsSource="{Binding ListaType}" SelectedItem="{Binding NewType2}" HorizontalTextAlignment="Center"/>
+                <Label TextColor="Yellow" Grid.Row="2" Grid.Column="0" FontSize="30" HorizontalTextAlignment="Start">INIZIATIVA:</Label>
+                <Entry TextColor="Yellow" Grid.Row="2" Grid.Column="1" Text="{Binding NewInitiative}" FontSize="30" Keyboard="Numeric" Placeholder="" HorizontalTextAlignment="End"/>
+                <Label TextColor="DarkGray" Grid.Row="3" Grid.Column="0" FontSize="30" HorizontalTextAlignment="Start">CA:</Label>
+                <Entry TextColor="DarkGray" Grid.Row="3" Grid.Column="1" Text="{Binding NewCA}" FontSize="30" Keyboard="Numeric" HorizontalTextAlignment="End"/>
+                <Label TextColor="Red" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" FontSize="30" HorizontalTextAlignment="Start">PUNTI FERITA:</Label>
+                <Entry TextColor="Red" Grid.Row="4" Grid.Column="1" Text="{Binding NewPF}" FontSize="30" Keyboard="Numeric" HorizontalTextAlignment="End"/>
+            </Grid>
+
+            <Button Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding NewIsDead}" BackgroundColor="{Binding UccidiBackColor}" FontAttributes="Bold" TextColor="Black" FontSize="30" Command="{Binding UccidiCommand}"/>
+            <Button Grid.Row="2" Grid.ColumnSpan="2" Text="SALVA MODIFICA" BackgroundColor="DarkRed" FontAttributes="Bold" TextColor="Black" FontSize="30" Command="{Binding EditCommand}"/>
+        </Grid>
+    </Frame>
+</ContentPage>
